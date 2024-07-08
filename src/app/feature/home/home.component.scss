@@ -2,13 +2,13 @@
 @import "../../../assets/sass/helper/typography";
 @import "../../../assets/sass/helper/mixin";
 
-header {
+.intro {
     padding: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 225px;
-    .slider {
+    .intro-content {
         display: flex;
         align-items: flex-end;
         min-height: 225px;

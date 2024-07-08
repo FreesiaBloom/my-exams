@@ -450,7 +450,7 @@ footer .footer-nav li a {
     color: $white;
 }
 
-header {
+.intro {
     background-color: #fcfcfc;
     padding: 40px;
     display: flex;
@@ -459,7 +459,7 @@ header {
     min-height: 225px;
 }
 
-header .slider {
+.intro .intro-content {
     display: flex;
     align-items: flex-end;
     min-height: 225px;
@@ -468,12 +468,12 @@ header .slider {
     justify-content: center;
 }
 
-header .slider-text {
+.intro .intro-text {
     font-size: 43px;
     font-weight: 800;
 }
 
-header .slider-img {
+.intro .intro-img {
     display: flex;
     justify-content: center;
 }
@@ -529,7 +529,7 @@ header .slider-img {
         max-width: 95%;
     }
 
-    header .slider-text {
+    .intro .intro-text {
         font-size: 36px;
         font-weight: 800;
     }
@@ -575,7 +575,7 @@ header .slider-img {
         display: none;
     }
 
-    header .slider {
+    .intro .intro-content {
         display: flex;
         align-items: center;
         min-height: auto;
@@ -585,12 +585,12 @@ header .slider-img {
         justify-content: center;
     }
 
-    header .slider-text {
+    .intro .intro-text {
         font-size: 55px;
         text-align: center;
     }
 
-    header .slider-img {
+    .intro .intro-img {
         text-align: center;
     }
 
@@ -613,13 +613,13 @@ header .slider-img {
 }
 
 @media (max-width: 768px) {
-    header {
+    .intro {
         padding: 15px;
-    }
-
-    header .slider-text {
-        font-size: 35px;
-        text-align: center;
+        
+        .intro-text {
+            font-size: 35px;
+            text-align: center;
+        }
     }
 
     .col-a-plus {
@@ -639,7 +639,7 @@ header .slider-img {
 }
 
 @media (max-width: 479px) {
-    header .slider-text {
+    .intro .intro-text {
         font-size: 26px;
         text-align: center;
     }
