@@ -3,17 +3,6 @@
     font-weight: 600;
     padding: 8px 32px;
     font-size: 18px;
-
-    &-white {
-        color: $secondary;
-        background-color: $white;
-    }
-
-    &-white:hover,
-    &-white-outline:hover {
-        background-color: $white;
-        color: $secondary !important;
-    }
 }
 
 @each $name, $color in $colors {

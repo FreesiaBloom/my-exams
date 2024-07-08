@@ -2,12 +2,15 @@
 @import "../../../../assets/sass/helper/typography";
 @import "../../../../assets/sass/helper/mixin";
 
-.main-nav {
-    box-shadow: 10px 5px 9px #babaf8;
-}
+
 
 .main-nav {
     @include box-shadow(10px, 5px, 9px, #babaf8, false);
+
+    .navbar-toggler {
+        color: black;
+    }
+
     .navbar-nav {
         .nav-item {
             padding-right: 32px;

@@ -10,6 +10,7 @@ $size-7: 55px;
 
 body {
   // @include transition(ease-in-out 0.5s);
+  transition: ease-in-out 0.5s;
   font-family: "Source Sans Pro", sans-serif;
   font-size: $body-font;
   font-weight: 400;
@@ -30,7 +31,7 @@ p {
 }
 
 .sec-title {
-  font-size: $size-5;
-  color: $black;
-  margin-bottom: 20px;
+    font-size: 30px;
+    color: $black;
+    margin-bottom: 20px;
 }
