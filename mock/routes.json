@@ -1,0 +1,13 @@
+{
+  "/exams/list": "/exams",
+  "/exams/get/:id": "/exams/:id",
+  "/exams/create": "/exams",
+  "/exams/update/:id": "/exams/:id",
+  "/exams/delete/:id": "/exams/:id",
+
+  "/login/list": "/login",
+  "/login/get/:id": "/login/:id",
+  "/login/create": "/login",
+  "/login/update/:id": "/login/:id",
+  "/login/delete/:id": "/login/:id"
+}

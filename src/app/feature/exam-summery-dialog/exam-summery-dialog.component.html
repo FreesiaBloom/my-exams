@@ -1,0 +1,21 @@
+<mat-dialog-content class="mat-typography">
+    <h1 mat-dialog-title>Exam {{ data.details.exam_date | date: "dd.MM.YYY"}}</h1>
+
+    <h2>Subject</h2>
+    <p>{{ data.details.subject}}</p>
+
+    <h2>Semester</h2>
+    <p>{{ data.details.semester}}</p>
+
+    <h2>Summery</h2>
+    <p>{{ data.details.summary}}</p>
+
+    <h2>Graded</h2>
+    <p>{{ data.details.summary}}</p>
+    
+    <a [href]="data.details.ungraded_url">Link to exam grade</a>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+</mat-dialog-content>

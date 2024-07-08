@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+}
+
+td, th {
+  padding: 4px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.mat-sort-header-container {
+  justify-content: center;
+}
+
+.hover {
+  cursor: pointer;
+}
