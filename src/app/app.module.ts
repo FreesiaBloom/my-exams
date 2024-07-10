@@ -15,7 +15,6 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { EllipsisPipe } from "./core/pipes/ellipsis.pipe";
-import { WeekSpreadPipe } from "./core/pipes/week-spread.pipe";
 import { IsLoggedDirective } from "./core/directives/is-logged.directive";
 import { HomeComponent } from "./feature/home/home.component";
 import { AboutComponent } from "./feature/about/about.component";
@@ -24,7 +23,6 @@ import { RegisterComponent } from "./feature/register/register.component";
 import { UserComponent } from "./feature/user/user.component";
 import { ListItemComponent } from "./feature/list-item/list-item.component";
 import { DashboardComponent } from "./feature/dashboard/dashboard.component";
-import { CalendarComponent } from "./feature/calendar/calendar.component";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { provideNativeDateAdapter } from "@angular/material/core";
 
@@ -41,8 +39,7 @@ import { provideNativeDateAdapter } from "@angular/material/core";
     UserComponent,
     IsLoggedDirective,
     ListItemComponent,
-    DashboardComponent,
-    CalendarComponent
+    DashboardComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +54,6 @@ import { provideNativeDateAdapter } from "@angular/material/core";
     ToastrModule.forRoot(),
     AppRoutingModule,
     EllipsisPipe,
-    WeekSpreadPipe,
     MatCardModule,
     MatFormFieldModule
   ],
