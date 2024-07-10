@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -21,6 +21,6 @@ import {
   ]
 })
 export class SummeryDialogComponent {
-  readonly data = inject<string>(MAT_DIALOG_DATA);
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string) {}
 }
 

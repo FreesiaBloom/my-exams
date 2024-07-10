@@ -13,6 +13,7 @@ import { provideNativeDateAdapter } from "@angular/material/core";
 import { of } from "rxjs";
 import { AuthService } from "src/app/core/services/auth.service";
 import { ListItemComponent } from "../list-item/list-item.component";
+import { mockExams } from "src/app/shared/mock/exams.mock";
 
 describe("UserComponent", () => {
   let component: UserComponent;
@@ -71,21 +72,7 @@ describe("UserComponent", () => {
           useValue: {
             snapshot: {
               data: {
-                exams: [
-                  {
-                    details: {
-                      student: {
-                        firstName: "John",
-                        lastName: "Smith",
-                        email: "john.smith@gmail.com",
-                      },
-                      school: {
-                        schoolName: "schoolName",
-                      },
-                      exam_date: "10.07.2022",
-                    },
-                  },
-                ],
+                exams: mockExams,
               },
             },
           },
@@ -105,13 +92,13 @@ describe("UserComponent", () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open alert after submit when form is empty', () => {
-    expect(component.passwordChangeForm.valid).toBeFalse();
-    component.onSubmitForm();
-    expect(window.alert).toHaveBeenCalledWith('form is not valid');
-  });
-
-  describe("change password form", () => {
+  describe("onSubmitForm", () => {
+    it('should open alert after submit when form is empty', () => {
+      expect(component.passwordChangeForm.valid).toBeFalse();
+      component.onSubmitForm();
+      expect(window.alert).toHaveBeenCalledWith('form is not valid');
+    });
+    
     it('should open alert after submit when form is invalid', () => {
       component.passwordChangeForm.get('password').setValue('password')
       component.passwordChangeForm.get('retype_password').setValue('pass')
@@ -133,5 +120,22 @@ describe("UserComponent", () => {
       expect(toastrServiceMock.success).toHaveBeenCalled();
       expect(authServiceMock.logOut).toHaveBeenCalled();
     });
-  })
+  });
+
+  describe("dateClass", () => {
+    it('should return exam-date class name for matched exam', () => {
+      const mockDate = new Date('September 3, 2020');
+      expect(component.dateClass(mockDate, "month")).toEqual('exam-date');
+    });
+
+    it('should return default-date class name for not matched exam', () => {
+      const mockDate = new Date('August 19, 2018');
+      expect(component.dateClass(mockDate, "month")).toEqual('default-date');
+    });
+    
+    it('should return empty string for diffrent calendar view', () => {
+      const mockDate = new Date('August 19, 2024');
+      expect(component.dateClass(mockDate, "year")).toEqual('');
+    });
+  });
 });

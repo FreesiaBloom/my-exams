@@ -7,7 +7,7 @@ import { IExam } from "src/app/shared/models/exam";
 import { ToastrService } from "ngx-toastr";
 import { MatDialog } from "@angular/material/dialog";
 import { AuthService } from "src/app/core/services/auth.service";
-import { SummeryDialogComponent } from "../summery-dialog/summery-dialog.component";
+import { SummeryDialogComponent } from "../../core/components/dialogs/summery-dialog/summery-dialog.component";
 
 @Component({
   selector: "app-dashboard",

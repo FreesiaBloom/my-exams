@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SummeryDialogComponent } from './summery-dialog.component';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 describe('SummeryDialogComponent', () => {
   let component: SummeryDialogComponent;
@@ -11,10 +11,12 @@ describe('SummeryDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SummeryDialogComponent, MatDialogModule],
       providers: [
-      {
-        provide:MAT_DIALOG_DATA,
-        useValue:{}
-      }
+        { provide: MatDialog, useValue: MatDialog },
+        { provide: MatDialogRef, useValue: {} },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: "Example summery"
+        }
   ]
     })
     .compileComponents();

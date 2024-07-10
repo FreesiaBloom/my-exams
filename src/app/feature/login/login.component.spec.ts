@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { ToastrModule, ToastrService } from "ngx-toastr";
 import { AuthService } from "src/app/core/services/auth.service";
-import { mockUserData, mockUsers } from "src/app/shared/mock/user-data.mock";
+import { mockInvalidUser, mockUser, mockUsers, mockWrongCredentialsUser } from "src/app/shared/mock/user-data.mock";
 
 describe("LoginComponent", () => {
   let component: LoginComponent;
@@ -70,39 +70,66 @@ describe("LoginComponent", () => {
     expect(component.loginForm.getRawValue()["password"]).toEqual("test123");
   });
 
-  it("should login successfully", () => {
-    component.loginForm.get("email").setValue(mockUserData.username);
-    component.loginForm.get("password").setValue(mockUserData.password);
+  describe("onSubmitForm", () => {
+    it("should login successfully with valid user", () => {
+      component.loginForm.get("email").setValue(mockUser.username);
+      component.loginForm.get("password").setValue(mockUser.password);
+  
+      const { email } = component.loginForm.value;
+      const user = component.users.find((u) => u.username == email);
+  
+      expect(component.loginForm.valid).toBeTrue();
+      
+      component.onSubmitForm();
+  
+      expect(authServiceMock.login).toHaveBeenCalledWith(user);
+    });
 
-    const { email } = component.loginForm.value;
-    const user = component.users.find((u) => u.username == email);
+    it("should not login with wrong user", () => {
+      component.loginForm.get("email").setValue(mockWrongCredentialsUser.username);
+      component.loginForm.get("password").setValue(mockWrongCredentialsUser.password);
+  
+      expect(component.loginForm.valid).toBeTrue();
+      
+      component.onSubmitForm();
+  
+      expect(authServiceMock.login).not.toHaveBeenCalled();
+      expect(toastrServiceMock.error).toHaveBeenCalledWith("No user found!");
+    });
 
-    expect(component.loginForm.valid).toBeTrue();
-    
-    component.onSubmitForm();
-    expect(authServiceMock.login).toHaveBeenCalledWith(user);
-  });
+    it("should not login with inactive credentials", () => {
+      component.loginForm.get("email").setValue(mockInvalidUser.username);
+      component.loginForm.get("password").setValue(mockInvalidUser.password);
+  
+      expect(component.loginForm.valid).toBeTrue();
+      
+      component.onSubmitForm();
+  
+      expect(authServiceMock.login).not.toHaveBeenCalled();
+      expect(toastrServiceMock.error).toHaveBeenCalledWith("Please contact Admin to login!");
+    });
+  
+    it("should handle validation for empty credentials", () => {
+      component.loginForm.get("email").setValue('');
+      component.loginForm.get("password").setValue('');
+      expect(component.loginForm.valid).toBeFalse();
+  
+      component.onSubmitForm();
+  
+      expect(authServiceMock.login).not.toHaveBeenCalled();
+      expect(toastrServiceMock.error).not.toHaveBeenCalled();
+    });
+  
+    it("should handle validation for invalid credentials", () => {
+      component.loginForm.get('email').setValue(mockUser.username);
+      component.loginForm.get('password').setValue('123');
+      expect(component.loginForm.valid).toBeTrue();
+  
+      component.onSubmitForm();
+      
+      expect(authServiceMock.login).not.toHaveBeenCalled();
+      expect(toastrServiceMock.error).toHaveBeenCalledWith("Password doesn't match");
+    });
 
-
-  it("should handle validation for empty required data", () => {
-    component.loginForm.get("email").setValue('');
-    component.loginForm.get("password").setValue('');
-    expect(component.loginForm.valid).toBeFalse();
-
-    component.onSubmitForm();
-
-    expect(authServiceMock.login).not.toHaveBeenCalled();
-    expect(toastrServiceMock.error).not.toHaveBeenCalled();
-  });
-
-  it("should handle not correct data", () => {
-    component.loginForm.get('email').setValue(mockUserData.username);
-    component.loginForm.get('password').setValue('123');
-    expect(component.loginForm.valid).toBeTrue();
-
-    component.onSubmitForm();
-    
-    expect(authServiceMock.login).not.toHaveBeenCalled();
-    expect(toastrServiceMock.error).toHaveBeenCalledWith("Password doesn't match");
-  });
+  })
 });

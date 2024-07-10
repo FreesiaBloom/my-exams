@@ -7,7 +7,7 @@ import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { EllipsisPipe } from "src/app/core/pipes/ellipsis.pipe";
 import { of, throwError } from "rxjs";
 import { AuthService } from "src/app/core/services/auth.service";
@@ -69,6 +69,7 @@ describe("DashboardComponent", () => {
             },
           },
         },
+        { provide: MatDialogRef, useValue: {} },
         {
           provide: MAT_DIALOG_DATA, useValue: {},
         }
@@ -79,7 +80,6 @@ describe("DashboardComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
-    // dialog = TestBed.get(MatDialog);
     fixture.detectChanges();
   });
 

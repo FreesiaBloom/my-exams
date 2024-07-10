@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
 import { Injector } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { mockExam, mockExams } from "../../shared/mock/exams.mock";
-import { mockUpdatedUserData, mockUserData, mockUsers } from "../../shared/mock/user-data.mock";
+import { mockUpdatedUser, mockUser, mockUsers } from "../../shared/mock/user-data.mock";
 import { Router } from "@angular/router";
 import { AuthService } from "./auth.service";
 
@@ -48,7 +48,7 @@ describe("AuthService", () => {
     });
   
     it('populate should emit isAuthenticatedSubject with when user is find', () => {
-      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(mockUserData));
+      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(mockUser));
       spyOn(authServiceMock.isAuthenticatedSubject, 'next');
   
       authServiceMock.populate();
@@ -78,7 +78,7 @@ describe("AuthService", () => {
       spyOn(localStorage, 'setItem');
       spyOn(authServiceMock.isAuthenticatedSubject, 'next');
   
-      const user = mockUserData;
+      const user = mockUser;
       authServiceMock.login(user);
   
       let url = user.role == "admin" ? "/dashboard" : "/user";
@@ -104,18 +104,18 @@ describe("AuthService", () => {
 
   describe("updateUser", () => {
     it("should make put http request and return updated user", () => {
-      authServiceMock.updateUser(mockUserData).subscribe((res) => {
+      authServiceMock.updateUser(mockUser).subscribe((res) => {
         expect(res).toBeTruthy();
-        expect(res).toEqual(mockUpdatedUserData);
+        expect(res).toEqual(mockUpdatedUser);
       });
 
       const req = httpController.expectOne({
         method: "PUT",
-        url: `${environment.api_url}/login/update/${mockUserData.id}`,
+        url: `${environment.api_url}/login/update/${mockUser.id}`,
       });
 
       expect(req.request.method).toBe('PUT');
-      req.flush(mockUpdatedUserData);
+      req.flush(mockUpdatedUser);
     });
   });
 
@@ -138,12 +138,12 @@ describe("AuthService", () => {
 
   describe("getLoggedInUser", () => {
     it('should return user when user get from local storage', () => {
-      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(mockUserData));
+      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(mockUser));
   
       const user = authServiceMock.getLoggedInUser();
   
       expect(localStorage.getItem).toHaveBeenCalled();
-      expect(user).toEqual(mockUserData);
+      expect(user).toEqual(mockUser);
     });
 
     it('should return null when user is null', () => {
@@ -158,7 +158,7 @@ describe("AuthService", () => {
 
   describe("isAuthenticated", () => {
     it('should return true when user is logged in', () => {
-      const localStorageUser = mockUserData;
+      const localStorageUser = mockUser;
       spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(localStorageUser));
 
       const isAuth = authServiceMock.isAuthenticated();
