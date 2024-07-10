@@ -4,7 +4,6 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app.routing";
 import { NavbarComponent } from "./core/components/navbar/navbar.component";
 import { FooterComponent } from "./core/components/footer/footer.component";
-import { HiwComponent } from "./core/components/hiw/hiw.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
@@ -33,7 +32,6 @@ import { provideNativeDateAdapter } from "@angular/material/core";
     FooterComponent,
     HomeComponent,
     AboutComponent,
-    HiwComponent,
     LoginComponent,
     RegisterComponent,
     UserComponent,

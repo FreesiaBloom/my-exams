@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HiwComponent } from './core/components/hiw/hiw.component';
 import { IsAdminGuard } from './core/guards/is-admin.guard';
 import { IsStudentGuard } from './core/guards/is-student.guard';
 import { AuthGuard } from './core/guards/auth.guard';
@@ -22,10 +21,6 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent,
-  },
-  {
-    path: 'how-it-works',
-    component: HiwComponent,
   },
   {
     path: 'login',
