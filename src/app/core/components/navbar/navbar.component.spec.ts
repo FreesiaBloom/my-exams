@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { HeaderComponent } from "./header.component";
+import { NavbarComponent } from "./navbar.component";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { AuthService } from "src/app/core/services/auth.service";
 
-describe("HeaderComponent", () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+describe("NavbarComponent", () => {
+  let component: NavbarComponent;
+  let fixture: ComponentFixture<NavbarComponent>;
 
   const authServiceMock = jasmine.createSpyObj("AuthService", {
     logOut: () => {}
@@ -14,7 +14,7 @@ describe("HeaderComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderComponent],
+      declarations: [NavbarComponent],
       imports: [HttpClientTestingModule],
       providers: [
         { provide: AuthService, useValue: authServiceMock }
@@ -23,7 +23,7 @@ describe("HeaderComponent", () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

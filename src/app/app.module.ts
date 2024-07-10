@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app.routing";
-import { HeaderComponent } from "./core/components/header/header.component";
+import { NavbarComponent } from "./core/components/navbar/navbar.component";
 import { FooterComponent } from "./core/components/footer/footer.component";
 import { HiwComponent } from "./core/components/hiw/hiw.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -29,7 +29,7 @@ import { provideNativeDateAdapter } from "@angular/material/core";
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    NavbarComponent,
     FooterComponent,
     HomeComponent,
     AboutComponent,
