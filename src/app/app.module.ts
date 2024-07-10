@@ -25,6 +25,8 @@ import { UserComponent } from "./feature/user/user.component";
 import { ListItemComponent } from "./feature/list-item/list-item.component";
 import { DashboardComponent } from "./feature/dashboard/dashboard.component";
 import { CalendarComponent } from "./feature/calendar/calendar.component";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { provideNativeDateAdapter } from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { CalendarComponent } from "./feature/calendar/calendar.component";
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDatepickerModule,
     ToastrModule.forRoot(),
     AppRoutingModule,
     EllipsisPipe,
@@ -58,7 +61,7 @@ import { CalendarComponent } from "./feature/calendar/calendar.component";
     MatCardModule,
     MatFormFieldModule
   ],
-  providers: [],
+  providers: [provideNativeDateAdapter()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

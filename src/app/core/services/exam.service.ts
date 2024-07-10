@@ -11,9 +11,22 @@ export class ExamService {
   readonly dialog = inject(MatDialog);
   
   public openExamDialog(exams: IExam[], day: Day) {
-    const matchedExam = exams.find((exam: IExam) => new Date(exam.details.exam_date).toDateString() === day.date.toDateString());
+    const matchedExam = this.isExamsIncludesDate(exams, day.date);
     this.dialog.open(ExamSummeryDialogComponent, {
       data: matchedExam,
     });
+  }
+  
+  public openExamDetailsDialog(exams: IExam[], date: Date) {
+    const matchedExam = this.isExamsIncludesDate(exams, date);
+    if (matchedExam) {
+      this.dialog.open(ExamSummeryDialogComponent, {
+        data: matchedExam,
+      });
+    }
+  }
+
+  public isExamsIncludesDate(exams: IExam[], date: Date) {
+    return exams.find(exam =>  new Date(exam.details.exam_date).toDateString() === date.toDateString());
   }
 }

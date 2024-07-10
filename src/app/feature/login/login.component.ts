@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit {
     this.users = this.route.snapshot.data.users;
 
     this.loginForm = this.fb.group({
-      email: ['jackb', Validators.required],
-      password: ['password', Validators.required],
+      email: ['agataj', Validators.required],
+      password: ['test123', Validators.required],
     });
   }
 

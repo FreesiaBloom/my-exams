@@ -47,7 +47,7 @@ export class AuthService {
   updateUser(body) {
     return this.http.put(
       environment.api_url + '/login/update/' + body.id,
-      this.transformUserData(body)
+      body
     );
   }
 
@@ -71,11 +71,5 @@ export class AuthService {
 
   getExams() {
     return this.http.get(environment.api_url + '/exams');
-  }
-
-  transformUserData(body): any {
-    if ( !body ) return null;
-    const {password, retype_password, ...updatedUser} = body;
-    return updatedUser;
   }
 }

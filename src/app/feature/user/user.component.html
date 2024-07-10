@@ -52,30 +52,47 @@
         </div>
 
       </div>
-      <div class="col-md-8">
-        <app-calendar></app-calendar>
 
-        <ng-container *ngFor="let exam of exams">
+      <!-- TODO: finish this component  -->
+      <!-- <div class="row">
+        <div class="col-md-8 mx-auto">
+            <app-calendar></app-calendar>
+        </div>
+      </div> -->
 
-          <div class="card mb-3">
-            <div class="card-body">
+      
+      <div class="col-md-8 mx-auto">
+        <mat-card class="mb-5 p-3">
+          <mat-calendar 
+            [dateClass]="dateClass"
+            (selectedChange)="onSelect($event)"
+            [minDate]="todayDate"
+          ></mat-calendar>
+        </mat-card>
+      </div>
 
-              <list-item title="Summary"> {{exam.details.summary}} </list-item>
-              <list-item title="Subject"> {{exam.details.subject}} </list-item>
-              <list-item title="Level"> {{exam.details.level}} </list-item>
-              <list-item title="Grade value"> {{exam.details.grade_value}} </list-item>
-              <list-item title="Exam date"> {{exam.details.exam_date | date}} </list-item>
-
-              <list-item title="Graded Link">
-              <a [href]="exam.details.graded_url">{{ exam.details.graded_url }}</a>
-              </list-item>
-
+      <div class="row">
+        <div class="col-md-12">
+          <h4 class="mb-3">All exams</h4>
+          <ng-container *ngFor="let exam of exams">
+            <div class="card mb-3">
+              <div class="card-body">
+                <list-item title="Summary"> {{exam.details.summary}} </list-item>
+                <list-item title="Subject"> {{exam.details.subject}} </list-item>
+                <list-item title="Level"> {{exam.details.level}} </list-item>
+                <list-item title="Grade value"> {{exam.details.grade_value}} </list-item>
+                <list-item title="Exam date"> {{exam.details.exam_date | date}} </list-item>
+  
+                <list-item title="Graded Link">
+                <a [href]="exam.details.graded_url">{{ exam.details.graded_url }}</a>
+                </list-item>
+                <list-item title="Ungraded Link">
+                <a [href]="exam.details.ungraded_url">{{ exam.details.ungraded_url }}</a>
+                </list-item>
+              </div>
             </div>
-          </div>
-
-
-        </ng-container>
-
+          </ng-container>
+        </div>
       </div>
     </div>
 

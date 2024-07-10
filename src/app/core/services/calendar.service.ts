@@ -7,7 +7,7 @@ import { IExam } from "../../shared/models/exam";
 })
 export class CalendarService {
   public calendar: Day[] = [];
-  public isToday: Day;;
+  public isToday: Day;
 
   public get getCurrentMonthName(): string {
     switch (this.isToday.date.getMonth()) {

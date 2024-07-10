@@ -48,3 +48,20 @@
 .shadow-none {
   box-shadow: none !important;
 }
+
+::ng-deep.exam-date > .mat-calendar-body-cell-content {
+  border-color: $primary !important;
+  border-width: 1px;
+  border-style: solid;
+}
+
+::ng-deep.exam-date:hover > .mat-calendar-body-cell-content {
+  background-color: $primary-opc !important;
+}
+
+::ng-deep.default-date.mat-calendar-body-cell {
+  cursor: default !important;
+}
+::ng-deep.default-date:hover > .mat-calendar-body-cell-content {
+  background-color: unset !important;
+}

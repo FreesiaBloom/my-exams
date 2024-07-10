@@ -6,9 +6,9 @@
         "summary": "Basic Principles of architectural engineering",
         "student": {
           "id": 1,
-          "firstName": "Jack",
-          "lastName": "Bauer",
-          "email": "jack.bauer@jbu,edu",
+          "firstName": "Agata",
+          "lastName": "Jasinska",
+          "email": "agata.jasinska@email.comm",
           "verified": true
         },
         "school": {
@@ -16,7 +16,7 @@
           "schoolName": "Jack Bauer University"
         },
         "grade_value": 98,
-        "exam_date": "2020-09-03",
+        "exam_date": "2024-07-13",
         "course_number": "ENG-1234",
         "semester": "Fall",
         "discipline": "Architectural Engineering",
@@ -33,9 +33,9 @@
         "summary": "Acid-base reduction",
         "student": {
           "id": 3,
-          "firstName": "Yair",
-          "lastName": "Yokovitch",
-          "email": "yokovitch@lmu.edu",
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "email": "jane.smith@example.com",
           "verified": true
         },
         "school": {
@@ -60,9 +60,9 @@
         "summary": "Military tactics during the 19th Century",
         "student": {
           "id": 6,
-          "firstName": "Sergey",
-          "lastName": "Nolvarushka",
-          "email": "sergey.nolva@umoscow.edu",
+          "firstName": "Bob",
+          "lastName": "Williams",
+          "email": "bob.williams@example.com",
           "verified": true
         },
         "school": {
@@ -82,13 +82,14 @@
       }
     },
     {
+      "id": 4,
       "details": {
         "summary": "ISO recommendations on industrial safety for battery manufacturers",
         "student": {
           "id": 7,
-          "firstName": "Karl",
-          "lastName": "Frosh",
-          "email": "kfrosh@ocu.edu",
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@example.com",
           "verified": true
         },
         "school": {
@@ -105,17 +106,17 @@
         "ungraded_url": "https://www.example.com/ungraded-2",
         "graded_url": "https://www.example.com/graded-2",
         "status": 1
-      },
-      "id": 4
+      }
     },
     {
+      "id": 5,
       "details": {
         "summary": "Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline",
         "student": {
           "id": 7,
-          "firstName": "Karl",
-          "lastName": "Frosh",
-          "email": "kfrosh@ocu,edu",
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@example.com",
           "verified": true
         },
         "school": {
@@ -132,17 +133,17 @@
         "ungraded_url": "https://www.example.com/ungraded-5",
         "graded_url": "https://www.example.com/graded-5",
         "status": 1
-      },
-      "id": 5
+      }
     },
     {
+      "id": 6,
       "details": {
         "summary": "Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline Calculating the speed of an Uber delivery robot with 54W battery power left when moving uphill on a 30 degree incline",
         "student": {
           "id": 7,
-          "firstName": "Karl",
-          "lastName": "Frosh",
-          "email": "kfrosh@ocu,edu",
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@example.com",
           "verified": true
         },
         "school": {
@@ -159,21 +160,155 @@
         "ungraded_url": "https://www.example.com/ungraded-5",
         "graded_url": "https://www.example.com/graded-5",
         "status": 1
-      },
-      "id": 5
+      }
+    },
+    {
+      "id": 6,
+      "details": {
+        "summary": "Mid-term exam for Algebra",
+        "student": {
+          "id": 1,
+          "firstName": "Agata",
+          "lastName": "Jasinska",
+          "email": "agata.jasinska@email.comm",
+          "verified": true
+        },
+        "school": {
+          "id": 201,
+          "schoolName": "Greenwood High"
+        },
+        "grade_value": 85,
+        "exam_date": "2023-03-15",
+        "course_number": "ALG101",
+        "semester": "Spring 2023",
+        "discipline": "Mathematics",
+        "subject": "Algebra",
+        "level": "High School",
+        "ungraded_url": "http://example.com/ungraded/ALG101-midterm",
+        "graded_url": "http://example.com/graded/ALG101-midterm",
+        "status": 1
+      }
+    },
+    {
+      "id": 7,
+      "details": {
+        "summary": "Final exam for Chemistry",
+        "student": {
+          "id": 102,
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "email": "jane.smith@example.com",
+          "verified": true
+        },
+        "school": {
+          "id": 202,
+          "schoolName": "Lakeside Academy"
+        },
+        "grade_value": 92,
+        "exam_date": "2023-05-22",
+        "course_number": "CHEM201",
+        "semester": "Spring 2023",
+        "discipline": "Science",
+        "subject": "Chemistry",
+        "level": "High School",
+        "ungraded_url": "http://example.com/ungraded/CHEM201-final",
+        "graded_url": "http://example.com/graded/CHEM201-final",
+        "status": 1
+      }
+    },
+    {
+      "id": 8,
+      "details": {
+        "summary": "Quarterly exam for World History",
+        "student": {
+          "id": 103,
+          "firstName": "Alice",
+          "lastName": "Johnson",
+          "email": "alice.johnson@example.com",
+          "verified": true
+        },
+        "school": {
+          "id": 203,
+          "schoolName": "Riverside School"
+        },
+        "grade_value": 78,
+        "exam_date": "2023-09-10",
+        "course_number": "HIST301",
+        "semester": "Fall 2023",
+        "discipline": "Social Studies",
+        "subject": "World History",
+        "level": "High School",
+        "ungraded_url": "http://example.com/ungraded/HIST301-quarterly",
+        "graded_url": "http://example.com/graded/HIST301-quarterly",
+        "status": 1
+      }
+    },
+    {
+      "id": 9,
+      "details": {
+        "summary": "Mid-term exam for English Literature",
+        "student": {
+          "id": 104,
+          "firstName": "Bob",
+          "lastName": "Williams",
+          "email": "bob.williams@example.com",
+          "verified": true
+        },
+        "school": {
+          "id": 204,
+          "schoolName": "Mountainview High"
+        },
+        "grade_value": 88,
+        "exam_date": "2023-10-05",
+        "course_number": "ENG202",
+        "semester": "Fall 2023",
+        "discipline": "Languages",
+        "subject": "English Literature",
+        "level": "High School",
+        "ungraded_url": "http://example.com/ungraded/ENG202-midterm",
+        "graded_url": "http://example.com/graded/ENG202-midterm",
+        "status": 1
+      }
+    },
+    {
+      "id": 10,
+      "details": {
+        "summary": "Final exam for Physics",
+        "student": {
+          "id": 105,
+          "firstName": "Emma",
+          "lastName": "Brown",
+          "email": "emma.brown@example.com",
+          "verified": true
+        },
+        "school": {
+          "id": 205,
+          "schoolName": "Sunnydale School"
+        },
+        "grade_value": 90,
+        "exam_date": "2023-12-20",
+        "course_number": "PHY301",
+        "semester": "Fall 2023",
+        "discipline": "Science",
+        "subject": "Physics",
+        "level": "High School",
+        "ungraded_url": "http://example.com/ungraded/PHY301-final",
+        "graded_url": "http://example.com/graded/PHY301-final",
+        "status": 1
+      }
     }
   ],
   "login": [
     {
       "id": 1,
-      "username": "jackb",
+      "username": "agataj",
       "role": "student",
       "status": 1,
-      "passwordHash": "5f4dcc3b5aa765d61d8327deb882cf99"
+      "passwordHash": "cc03e747a6afbbcbf8be7668acfebee5"
     },
     {
       "id": 3,
-      "username": "yairyoko",
+      "username": "emmabrown",
       "role": "student",
       "passwordHash": "5f4dcc3b5aa765d61d8327deb882cf99",
       "status": 1
@@ -181,13 +316,13 @@
     {
       "id": 6,
       "role": "student",
-      "username": "nolvasergey",
+      "username": "bobwilliams",
       "passwordHash": "5f4dcc3b5aa765d61d8327deb882cf99",
       "status": 1
     },
     {
       "id": 7,
-      "username": "karltheman",
+      "username": "alicejohnson",
       "role": "student",
       "status": 1,
       "passwordHash": "202cb962ac59075b964b07152d234b70"
