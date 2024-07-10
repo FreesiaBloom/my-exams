@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CalendarComponent } from './calendar.component';
 import { WeekSpreadPipe } from 'src/app/core/pipes/week-spread.pipe';
 import { ActivatedRoute } from '@angular/router';
-import { mockExams } from 'src/app/core/mock/exams.mock';
+import { mockExams } from 'src/app/shared/mock/exams.mock';
 
 describe('CalendarComponent', () => {
   let component: CalendarComponent;

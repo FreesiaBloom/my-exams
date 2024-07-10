@@ -9,35 +9,42 @@ import { MatTableModule } from "@angular/material/table";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { EllipsisPipe } from "src/app/core/pipes/ellipsis.pipe";
-import { mockExam, mockExams } from "src/app/core/mock/exams.mock";
-import { mockUsers } from "src/app/core/mock/user-data.mock";
 import { of, throwError } from "rxjs";
 import { AuthService } from "src/app/core/services/auth.service";
 import { IExam } from "src/app/shared/models/exam";
+import { mockUsers } from "src/app/shared/mock/user-data.mock";
+import { mockExams } from "src/app/shared/mock/exams.mock";
  
 describe("DashboardComponent", () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-
-  const authServiceMock = jasmine.createSpyObj("AuthService", {
-    getLoggedInUser: {
-      id: 1,
-      username: "jackb",
-      role: "student",
-      status: 1,
-      password: "password",
-      passwordHash: "098f6bcd4621d373cade4e832627b4f6",
-    },
-    updateUser: of({}),
-    updateExam: of({}),
-  });
-
-  const toastServiceMock = jasmine.createSpyObj("ToastrService", {
-    success: undefined,
-    error: undefined,
-  });
+  let authServiceMock: AuthService;
+  let toastrServiceMock: ToastrService;
 
   beforeEach(async () => {
+    authServiceMock = jasmine.createSpyObj<AuthService>(
+      'AuthService',
+      { 
+        getLoggedInUser: {
+          id: 1,
+          username: "agataj",
+          role: "student",
+          status: 1,
+          password: "test123",
+          passwordHash: "098f6bcd4621d373cade4e832627b4f6",
+        },
+        updateUser: of({}),
+        updateExam: of({}),
+      }
+    );
+    toastrServiceMock = jasmine.createSpyObj<ToastrService>(
+      'ToastrService',
+      { 
+        success: undefined,
+        error: undefined
+      }
+    );
+
     await TestBed.configureTestingModule({
       declarations: [DashboardComponent],
       imports: [
@@ -50,7 +57,7 @@ describe("DashboardComponent", () => {
       ],
       providers: [
         { provide: AuthService, useValue: authServiceMock },
-        { provide: ToastrService, useValue: toastServiceMock },
+        { provide: ToastrService, useValue: toastrServiceMock },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -111,41 +118,26 @@ describe("DashboardComponent", () => {
 
   describe("changeStatus", () => {
     it("should updateUser when user status change return success", () => {
-      component.changeStatus({value: '0'}, component.exams[0]);
-
+      const payload: IExam = { ...component.exams[0] };
+      payload.details.status = 0;
       const user = component.users.find((u) => u.id == component.exams[0].details.student.id);
 
+      component.changeStatus({value: '0'}, component.exams[0]);
+
       expect(authServiceMock.updateUser).toHaveBeenCalledWith({...user, status: 0});
-      expect(toastServiceMock.success).toHaveBeenCalledWith('Successfully Updated User');
+      expect(authServiceMock.updateExam).toHaveBeenCalledWith(payload);
+      expect(toastrServiceMock.success).toHaveBeenCalledWith('Successfully Updated User');
+      expect(toastrServiceMock.success).toHaveBeenCalledWith('Successfully Updated Exam');
     });
 
     it("should not updateUser when user status returns error", () => {
-      authServiceMock.updateUser = jasmine.createSpy().and.returnValue(throwError(() => new Error()))
+      authServiceMock.updateUser = jasmine.createSpy().and.returnValue(throwError(() => new Error()));
       
       component.changeStatus({value: '0'}, component.exams[0]);
 
       expect(authServiceMock.updateUser).toHaveBeenCalled();
-      expect(toastServiceMock.error).toHaveBeenCalledWith('Update failed');
-    });
-
-    it("should updateExam when user status is changed", () => {
-      component.changeStatus({value: '0'}, component.exams[0]);
-
-      const payload: IExam = { ...component.exams[0] };
-      payload.details.status = 0;
-
-      expect(authServiceMock.updateExam).toHaveBeenCalledWith(payload);
-      expect(toastServiceMock.success).toHaveBeenCalledWith('Successfully Updated Exam');
-    });
-    
-
-    it("should not updateUser when user status returns error", () => {
-      authServiceMock.updateExam = jasmine.createSpy().and.returnValue(throwError(() => new Error()));
-      
-      component.changeStatus({value: '0'}, component.exams[0]);
-
       expect(authServiceMock.updateExam).toHaveBeenCalled();
-      expect(toastServiceMock.error).toHaveBeenCalledWith('Update failed');
+      expect(toastrServiceMock.error).toHaveBeenCalledWith('Update failed');
     });
   });
 });

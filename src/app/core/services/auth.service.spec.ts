@@ -1,6 +1,5 @@
 import { TestBed } from "@angular/core/testing";
 
-import { AuthService } from "./auth.service";
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -10,90 +9,58 @@ import { Injector } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { mockExam, mockExams } from "../../shared/mock/exams.mock";
 import { mockUpdatedUserData, mockUserData, mockUsers } from "../../shared/mock/user-data.mock";
+import { Router } from "@angular/router";
+import { AuthService } from "./auth.service";
 
-// TODO: (agajas) create more unit test with local storage
 describe("AuthService", () => {
   let injector: Injector;
-  let service: AuthService;
+  let authServiceMock: AuthService;
   let httpController: HttpTestingController;
+  let routerMock: Router;
 
   beforeEach(() => {
-    let user = {};
+    routerMock = jasmine.createSpyObj<Router>(
+      'Router',
+      { 
+        navigateByUrl: undefined
+      }
+    );
     injector = TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, ReactiveFormsModule],
+      providers: [{provide: Router, useValue: routerMock}]
     });
-    service = injector.get(AuthService);
+    authServiceMock = injector.get(AuthService);
     httpController = injector.get(HttpTestingController);
-    // const mockUserStorage = {
-    //   getItem: (key: string): string => {
-    //     return key in user ? user[key] : null;
-    //   },
-    //   setItem: (key: string, value: string) => {
-    //     user[key] = `${value}`;
-    //   },
-    //   removeItem: (key: string) => {
-    //     delete user[key];
-    //   },
-    //   clear: () => {
-    //     user = {};
-    //   }
-    // };
-
-    // spyOn(localStorage, 'getItem')
-    // .and.callFake(mockUserStorage.getItem);
-    // spyOn(localStorage, 'setItem')
-    //   .and.callFake(mockUserStorage.setItem);
-    // spyOn(localStorage, 'removeItem')
-    //   .and.callFake(mockUserStorage.removeItem);
-    // spyOn(localStorage, 'clear')
-    //   .and.callFake(mockUserStorage.clear);
   });
 
   it("should be created", () => {
-    expect(service).toBeTruthy();
+    expect(authServiceMock).toBeTruthy();
   });
 
-  // describe('populate', () => {
-  //   it("should store mocked user in localStorage", () => {
-  //     localStorage.setItem('suer', JSON.stringify(mockUserData));
-  //     service.populate();
-  //     expect(localStorage.getItem('user')).toEqual('sometoken');
-  //   });
-  // });
-
-  describe("getExams", () => {
-    it("should make get http request and return an array of Exams", () => {
-      service.getExams().subscribe((res) => {
-        expect(res).toEqual(mockExams);
-      });
-
-      const req = httpController.expectOne({
-        method: "GET",
-        url: `${environment.api_url}/exams`,
-      });
-
-      req.flush(mockExams);
+  describe("populate", () => {
+    it('should emit isAuthenticatedSubject with false when user is null', () => {
+      spyOn(localStorage, 'getItem').and.returnValue(null);
+      spyOn(authServiceMock.isAuthenticatedSubject, 'next');
+  
+      authServiceMock.populate();
+      expect(localStorage.getItem).toHaveBeenCalled();
+      expect(authServiceMock.isAuthenticatedSubject.next).toHaveBeenCalledWith(false);
     });
-  });
-
-  describe("updateExam", () => {
-    it("should make put http request and return updated exam", () => {
-      service.updateExam(mockExam).subscribe((res) => {
-        expect(res).toEqual(mockExam);
-      });
-
-      const req = httpController.expectOne({
-        method: "PUT",
-        url: `${environment.api_url}/exams/update/${mockExam.id}`,
-      });
-
-      req.flush(mockExam);
+  
+    it('populate should emit isAuthenticatedSubject with when user is find', () => {
+      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(mockUserData));
+      spyOn(authServiceMock.isAuthenticatedSubject, 'next');
+  
+      authServiceMock.populate();
+      expect(localStorage.getItem).toHaveBeenCalled();
+      expect(authServiceMock.isAuthenticatedSubject.next).toHaveBeenCalledWith(true);
     });
   });
 
   describe("getUsers", () => {
     it("should make get http request and return user list", () => {
-      service.getUsers().subscribe((res) => {
+      authServiceMock.getUsers().subscribe((res) => {
+        expect(res).toBeTruthy();
         expect(res).toEqual(mockUsers);
       });
 
@@ -101,14 +68,44 @@ describe("AuthService", () => {
         method: "GET",
         url: `${environment.api_url}/login`,
       });
-
+      expect(req.request.method).toBe('GET');
       req.flush(mockUsers);
+    });
+  });
+
+  describe("login", () => {
+    it('should authenticate user', () => {
+      spyOn(localStorage, 'setItem');
+      spyOn(authServiceMock.isAuthenticatedSubject, 'next');
+  
+      const user = mockUserData;
+      authServiceMock.login(user);
+  
+      let url = user.role == "admin" ? "/dashboard" : "/user";
+  
+      expect(localStorage.setItem).toHaveBeenCalledWith("user", JSON.stringify(user))
+      expect(authServiceMock.isAuthenticatedSubject.next).toHaveBeenCalledWith(true);
+      expect(routerMock.navigateByUrl).toHaveBeenCalledWith(url);
+    });
+  });
+
+  describe("logout", () => {
+    it('should logout user', () => {
+      spyOn(localStorage, 'removeItem');
+      spyOn(authServiceMock.isAuthenticatedSubject, 'next');
+  
+      authServiceMock.logOut();
+  
+      expect(localStorage.removeItem).toHaveBeenCalledWith("user")
+      expect(authServiceMock.isAuthenticatedSubject.next).toHaveBeenCalledWith(false);
+      expect(routerMock.navigateByUrl).toHaveBeenCalledWith('/login');
     });
   });
 
   describe("updateUser", () => {
     it("should make put http request and return updated user", () => {
-      service.updateUser(mockUserData).subscribe((res) => {
+      authServiceMock.updateUser(mockUserData).subscribe((res) => {
+        expect(res).toBeTruthy();
         expect(res).toEqual(mockUpdatedUserData);
       });
 
@@ -117,19 +114,83 @@ describe("AuthService", () => {
         url: `${environment.api_url}/login/update/${mockUserData.id}`,
       });
 
+      expect(req.request.method).toBe('PUT');
       req.flush(mockUpdatedUserData);
     });
   });
 
-  describe("transformUserData", () => {
-    it("should return null for empty arguments", () => {
-      expect(service.transformUserData(null)).toEqual(null);
+  describe("updateExam", () => {
+    it("should make put http request and return updated exam", () => {
+      authServiceMock.updateExam(mockExam).subscribe((res) => {
+        expect(res).toBeTruthy();
+        expect(res).toEqual(mockExam);
+      });
+
+      const req = httpController.expectOne({
+        method: "PUT",
+        url: `${environment.api_url}/exams/update/${mockExam.id}`,
+      });
+
+      expect(req.request.method).toBe('PUT');
+      req.flush(mockExam);
+    });
+  });
+
+  describe("getLoggedInUser", () => {
+    it('should return user when user get from local storage', () => {
+      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(mockUserData));
+  
+      const user = authServiceMock.getLoggedInUser();
+  
+      expect(localStorage.getItem).toHaveBeenCalled();
+      expect(user).toEqual(mockUserData);
     });
 
-    it("should return updated user data", () => {
-      expect(service.transformUserData(mockUserData)).toEqual(
-        mockUpdatedUserData
-      );
+    it('should return null when user is null', () => {
+      spyOn(localStorage, 'getItem').and.returnValue(null);
+  
+      const user = authServiceMock.getLoggedInUser();
+  
+      expect(localStorage.getItem).toHaveBeenCalled();
+      expect(user).toBeFalsy();
+    });
+  });
+
+  describe("isAuthenticated", () => {
+    it('should return true when user is logged in', () => {
+      const localStorageUser = mockUserData;
+      spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify(localStorageUser));
+
+      const isAuth = authServiceMock.isAuthenticated();
+
+      expect(localStorage.getItem).toHaveBeenCalled();
+      expect(isAuth).toBeTrue();
+    });
+
+    it('should return false when user is not logged in', () => {
+      spyOn(localStorage, 'getItem').and.returnValue(null);
+  
+      const isAuth = authServiceMock.isAuthenticated();
+  
+      expect(localStorage.getItem).toHaveBeenCalled();
+      expect(isAuth).toBeFalse();
+    });
+  })
+
+  describe("getExams", () => {
+    it("should make get http request and return an array of Exams", () => {
+      authServiceMock.getExams().subscribe((res) => {
+        expect(res).toBeTruthy();
+        expect(res).toEqual(mockExams);
+      });
+
+      const req = httpController.expectOne({
+        method: "GET",
+        url: `${environment.api_url}/exams`,
+      });
+
+      expect(req.request.method).toBe('GET');
+      req.flush(mockExams);
     });
   });
 });

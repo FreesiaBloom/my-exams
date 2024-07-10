@@ -1,9 +1,9 @@
 export const mockUsers = [
     {
         id: 1,
-        username: "jackb",
+        username: "agataj",
         role: "student",
-        passwordHash: "098f6bcd4621d373cade4e832627b4f6",
+        passwordHash: "cc03e747a6afbbcbf8be7668acfebee5",
         status: 1
       },
       {
@@ -38,16 +38,16 @@ export const mockUsers = [
 
 export const mockUserData = {
     id: 1,
-    username: "jackb",
+    username: "agataj",
     role: "student",
     status: 1,
-    password: "password",
-    passwordHash: "098f6bcd4621d373cade4e832627b4f6"
+    password: "test123",
+    passwordHash: "cc03e747a6afbbcbf8be7668acfebee5"
   }
 
 export const mockUpdatePasswordUserData = {
     id: 1,
-    username: "jackb",
+    username: "agataj",
     role: "student",
     status: 1,
     password: "test",
@@ -57,7 +57,7 @@ export const mockUpdatePasswordUserData = {
   
 export const mockUpdatedUserData = {
     id: 1,
-    username: "jackb",
+    username: "agataj",
     role: "student",
     status: 1,
     passwordHash: "098f6bcd4621d373cade4e832627b4f6"

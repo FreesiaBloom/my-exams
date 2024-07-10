@@ -4,24 +4,30 @@ import { LoginComponent } from "./login.component";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { ToastrModule, ToastrService } from "ngx-toastr";
-import { of } from "rxjs";
-import { mockUserData, mockUsers } from "src/app/core/mock/user-data.mock";
 import { AuthService } from "src/app/core/services/auth.service";
+import { mockUserData, mockUsers } from "src/app/shared/mock/user-data.mock";
 
 describe("LoginComponent", () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-
-  let authServiceMock = jasmine.createSpyObj("AuthService", {
-    login: undefined,
-  });
-
-  let toastServiceMock = jasmine.createSpyObj("ToastrService", {
-    success: undefined,
-    error: undefined,
-  });
+  let authServiceMock: AuthService;
+  let toastrServiceMock: ToastrService;
 
   beforeEach(async () => {
+    authServiceMock = jasmine.createSpyObj<AuthService>(
+      'AuthService',
+      { 
+        login: undefined
+      }
+    );
+    toastrServiceMock = jasmine.createSpyObj<ToastrService>(
+      'ToastrService',
+      { 
+        success: undefined,
+        error: undefined
+      }
+    );
+
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [
@@ -31,7 +37,8 @@ describe("LoginComponent", () => {
       ],
       providers: [
         {provide: AuthService, useValue: authServiceMock},
-        {provide: ToastrService, useValue: toastServiceMock},
+        {provide: ToastrService, useValue: toastrServiceMock},
+        {provide: AuthService, useValue: authServiceMock},
         {
           provide: ActivatedRoute,
           useValue: {
@@ -59,14 +66,15 @@ describe("LoginComponent", () => {
   it("should set default values", () => {
     fixture.detectChanges();
 
-    expect(component.loginForm.getRawValue()["email"]).toEqual("jackb");
-    expect(component.loginForm.getRawValue()["password"]).toEqual("password");
+    expect(component.loginForm.getRawValue()["email"]).toEqual("agataj");
+    expect(component.loginForm.getRawValue()["password"]).toEqual("test123");
   });
 
   it("should login successfully", () => {
     component.loginForm.get("email").setValue(mockUserData.username);
     component.loginForm.get("password").setValue(mockUserData.password);
-    const { email, password } = component.loginForm.value;
+
+    const { email } = component.loginForm.value;
     const user = component.users.find((u) => u.username == email);
 
     expect(component.loginForm.valid).toBeTrue();
@@ -77,30 +85,24 @@ describe("LoginComponent", () => {
 
 
   it("should handle validation for empty required data", () => {
-    component.loginForm.get("email").setValue(' ');
-    component.loginForm.get("password").setValue(' ');
-
-    // expect(component.loginForm.get("email")?.errors?.["required"]).toBeTrue;
-    // expect(component.loginForm.get("password")?.errors?.["required"]).toBeTrue;
+    component.loginForm.get("email").setValue('');
+    component.loginForm.get("password").setValue('');
+    expect(component.loginForm.valid).toBeFalse();
 
     component.onSubmitForm();
 
-    expect(component.loginForm.valid).toBeFalse();
     expect(authServiceMock.login).not.toHaveBeenCalled();
-    expect(toastServiceMock.error).not.toHaveBeenCalled();
+    expect(toastrServiceMock.error).not.toHaveBeenCalled();
   });
 
   it("should handle not correct data", () => {
     component.loginForm.get('email').setValue(mockUserData.username);
     component.loginForm.get('password').setValue('123');
+    expect(component.loginForm.valid).toBeTrue();
 
     component.onSubmitForm();
     
-    // expect(component.loginForm.get("email")?.errors?.["required"]).toEqual(undefined);
-    // expect(component.loginForm.get("password")?.errors?.["required"]).toEqual(undefined);
-    
-    expect(component.loginForm.valid).toBeTrue();
     expect(authServiceMock.login).not.toHaveBeenCalled();
-    expect(toastServiceMock.error).toHaveBeenCalledWith("Password doesn't match");
+    expect(toastrServiceMock.error).toHaveBeenCalledWith("Password doesn't match");
   });
 });
